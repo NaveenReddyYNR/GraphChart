@@ -1,0 +1,73 @@
+const PriceDayData = [{
+    name: 'Buy Prices',
+    data: [2.0, 2.2, 4.4, 4.8, 4.6, 5.2, 9.2],
+},
+{
+    name: 'Sell Price',
+    data: [3.0, 3.2, 5.4, 5.8, 5.6, 6.2, 6.5],
+},];
+
+const Price3DaysData = [{
+    name: 'Buy Prices',
+    data: [2.0, 2.2, 4.4, 4.8, 4.6, 5.2, 2.2],
+},
+{
+    name: 'Sell Price',
+    data: [3.0, 3.2, 5.4, 5.8, 5.6, 6.2, 6.5],
+},];
+
+const PriceWeekData = [{
+    name: 'Buy Prices',
+    data: [2.0, 2.2, 4.4, 4.8, 4.6, 5.2, 7.2],
+},
+{
+    name: 'Sell Price',
+    data: [3.0, 3.2, 5.4, 5.8, 5.6, 6.2, 8.5],
+},];
+
+const PriceMonthData = [{
+    name: 'Buy Prices',
+    data: [7.0, 9.2, 5.4, 7.8, 4.6, 8.2, 10.2],
+},
+{
+    name: 'Sell Price',
+    data: [13.0, 13.2, 15.4, 15.8, 15.6, 16.2, 17.5],
+},];
+
+const DailyDayData = [{
+    name: 'Volume bought',
+    data: [20, 22, 44, 48, 46, 52, 92],
+},
+{
+    name: 'Volume Sold',
+    data: [30, 32, 54, 58, 56, 62, 65],
+},];
+
+const Daily3DaysData = [{
+    name: 'Volume bought',
+    data: [20, 22, 44, 48, 46, 52, 22],
+},
+{
+    name: 'Volume Sold',
+    data: [30, 32, 54, 58, 56, 62, 65],
+},];
+
+const DailyWeekData = [{
+    name: 'Volume bought',
+    data: [20, 22, 44, 48, 46, 52, 72],
+},
+{
+    name: 'Volume Sold',
+    data: [30, 32, 54, 58, 56, 62, 85],
+},];
+
+const DailyMonthData = [{
+    name: 'Volume bought',
+    data: [70, 92, 54, 78, 46, 82, 102],
+},
+{
+    name: 'Volume Sold',
+    data: [130, 132, 154, 158, 156, 162, 175],
+},];
+
+export { PriceDayData, Price3DaysData, PriceMonthData, PriceWeekData, DailyMonthData, DailyWeekData, Daily3DaysData, DailyDayData };
