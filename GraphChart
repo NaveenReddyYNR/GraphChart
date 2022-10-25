@@ -1,0 +1,171 @@
+import React, { useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
+import { Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { useNavigate } from 'react-router-dom';
+import { PriceDayData, Price3DaysData, PriceMonthData, PriceWeekData } from './MocData';
+
+
+const useStyles = makeStyles((theme) => ({
+  GraphButton: {
+    "&.active": {
+      background: 'black',
+      variant: 'outlined',
+    },
+  },
+}));
+
+const options1 = {
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    curve: 'smooth',
+  },
+
+  chart: {
+    toolbar: {
+      show: false
+    },
+  },
+  legend: {
+    show: false
+  },
+  markers: {
+    size: 6,
+    discrete: [
+      {
+        seriesIndex: 0,
+        dataPointIndex: 0,
+        size: 0
+      },
+      {
+        seriesIndex: 0,
+        dataPointIndex: 1,
+        fillColor: '#419EF7',
+        strokeColor: '#fff',
+        size: 6
+      }
+    ]
+  },
+  xaxis: {
+    type: 'datetime',
+    categories: ['9/18/22', '9/21/22', '9/25/22', '9/29/22', '10/2/22', '10/5/22', '10/9/22'],
+    selection: {
+      enabled: true
+    },
+  },
+  tooltip: {
+    x: {
+      format: 'mm/dd/yy',
+    },
+  },
+};
+
+const options = {
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    curve: 'smooth',
+  },
+
+  chart: {
+    toolbar: {
+      show: false
+    },
+  },
+  legend: {
+    show: false
+  },
+  markers: {
+    size: 6,
+    discrete: [
+      {
+        seriesIndex: 0,
+        dataPointIndex: 0,
+        size: 0
+      },
+      {
+        seriesIndex: 0,
+        dataPointIndex: 1,
+        fillColor: '#419EF7',
+        strokeColor: '#fff',
+        size: 6
+      }
+    ]
+  },
+  xaxis: {
+    type: 'datetime',
+    categories: ['9/18/22', '9/19/22', '9/20/22', '9/21/22', '9/22/22', '9/23/22', '9/24/22'],
+    selection: {
+      enabled: true
+    },
+  },
+  tooltip: {
+    x: {
+      format: 'mm/dd/yy',
+    },
+  },
+};
+
+const PriceChart = () => {
+
+
+
+  const classes = useStyles();
+  const navigate = useNavigate();
+
+  const [seriesData, setSeriesData] = useState(PriceDayData);
+  const [optionsData, setOptionsData] = useState(options);
+
+  const handleOneDay = () => {
+    setSeriesData(PriceDayData);
+    setOptionsData(options);
+  }
+  const handle3Days = () => {
+    setSeriesData(Price3DaysData);
+    setOptionsData(options1);
+
+  }
+  const handleWeek = () => {
+
+    setSeriesData(PriceWeekData);
+    setOptionsData(options1);
+
+
+  }
+  const handleMonth = () => {
+    setSeriesData(PriceMonthData);
+    setOptionsData(options);
+  }
+
+  return (
+    <div style={{ display: 'flex' }} >
+      <div style={{ writingMode: 'vertical-lr', alignItems: 'center', textAlign: 'center' }}>
+        Price in SPQ per counter
+      </div>
+      <br />
+      <div>
+        <h4 style={{ marginTop: '20px' }}>Price Chart</h4>
+        <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '3%' }}>
+          <div style={{ display: 'flex' }}>
+            <div style={{ backgroundColor: 'blue', color: 'white', padding: '1px', width: '80px', height: '30px' }} /><div>Buy Price</div>
+          </div>
+          <div style={{ display: 'flex' }}>
+            <div style={{ backgroundColor: 'lightgreen', color: 'white', padding: '1px', width: '80px', height: '30px' }} /><div>Sell Price</div>
+          </div>
+        </div>
+        <ReactApexChart options={optionsData} series={seriesData} type="line" height={350} width={420} />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button className={classes.GraphButton} variant="contained" onClick={handleOneDay}>1 Day</Button>
+          <Button className={classes.GraphButton} variant="contained" onClick={handle3Days}>3 Days</Button>
+          <Button className={classes.GraphButton} variant="contained" onClick={handleWeek}>1 Week</Button>
+          <Button className={classes.GraphButton} variant="contained" onClick={handleMonth}>1 Month</Button>
+        </div>
+      </div>
+    </div >
+  );
+};
+
+export default PriceChart;
