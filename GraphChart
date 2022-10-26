@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const options1 = {
+const oneDayOptions = {
   dataLabels: {
     enabled: false,
   },
@@ -47,7 +47,7 @@ const options1 = {
   },
   xaxis: {
     type: 'datetime',
-    categories: ['9/18/22', '9/18/22', '9/18/22', '9/18/22', '9/18/22', '9/18/22', '9/18/22'],
+    categories: ['9/18/22 6:00', '9/18/22 7:00', '9/18/22 8:00', '9/18/22 9:00', '9/18/22 10:00', '9/18/22 11:00', '9/18/22 12:00', '9/18/22 13:00', '9/18/22 14:00', '9/18/22 15:00', '9/18/22 16:00', '9/18/22 17:00', '9/18/22 18:00'],
     selection: {
       enabled: true
     },
@@ -67,7 +67,8 @@ const options1 = {
   },
 };
 
-const options = {
+
+const threeDaysOptions = {
   dataLabels: {
     enabled: false,
   },
@@ -102,7 +103,64 @@ const options = {
   },
   xaxis: {
     type: 'datetime',
-    categories: ['9/18/22', '9/19/22', '9/20/22', '9/21/22', '9/22/22', '9/23/22', '9/24/22'],
+    categories: ['9/18/22 6:00', '9/18/22 7:00', '9/18/22 8:00', '9/18/22 9:00', '9/19/22 6:00', '9/19/22 7:00', '9/19/22 8:00', '9/19/22 9:00', '9/20/22 6:00', '9/20/22 7:00', '9/20/22 8:00', '9/20/22 9:00', '9/20/22 10:00'],
+    selection: {
+      enabled: true
+    },
+    labels: {
+      datetimeFormatter: {
+        year: 'yyyy',
+        month: 'MMM \'yy',
+        day: 'dd MMM',
+        hour: 'HH:mm'
+      }
+    }
+  },
+  tooltip: {
+    x: {
+      format: 'HH:mm',
+    },
+  },
+};
+
+
+
+const optionsWeek = {
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    curve: 'smooth',
+  },
+
+  chart: {
+    toolbar: {
+      show: false
+    },
+  },
+  legend: {
+    show: false
+  },
+  markers: {
+    size: 6,
+    discrete: [
+      {
+        seriesIndex: 0,
+        dataPointIndex: 0,
+        size: 0
+      },
+      {
+        seriesIndex: 0,
+        dataPointIndex: 1,
+        fillColor: '#419EF7',
+        strokeColor: '#fff',
+        size: 6
+      }
+    ]
+  },
+  xaxis: {
+    type: 'datetime',
+    categories: ['9/18/22', '9/19/22', '9/20/22', '9/21/22', '9/22/22', '9/23/22', '9/24/22', '9/25/22'],
     selection: {
       enabled: true
     },
@@ -114,6 +172,56 @@ const options = {
   },
 };
 
+const optionsMonth = {
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    curve: 'smooth',
+  },
+
+  chart: {
+    toolbar: {
+      show: false
+    },
+  },
+  legend: {
+    show: false
+  },
+  markers: {
+    size: 6,
+    discrete: [
+      {
+        seriesIndex: 0,
+        dataPointIndex: 0,
+        size: 0
+      },
+      {
+        seriesIndex: 0,
+        dataPointIndex: 1,
+        fillColor: '#419EF7',
+        strokeColor: '#fff',
+        size: 6
+      }
+    ]
+  },
+  xaxis: {
+    type: 'datetime',
+    categories: ['9/18/22', '9/19/22', '9/20/22', '9/21/22', '9/22/22', '9/23/22', '9/24/22', '9/25/22', '9/26/22', '9/27/22', '9/28/22', '9/29/22', '9/30/22', '9/31/22', '10/01/22', '10/02/22', '10/03/22', '10/04/22', '10/05/22', '10/06/22', '10/07/22', '10/08/22', '10/09/22', '10/10/22', '10/11/22', '10/12/22', '10/13/22', '10/14/22', '10/15/22', '10/16/22', '10/17/22'],
+    selection: {
+      enabled: true
+    },
+  },
+  tooltip: {
+    x: {
+      format: 'mm/dd/yy',
+    },
+  },
+};
+
+
+
+
 const PriceChart = () => {
 
 
@@ -122,27 +230,27 @@ const PriceChart = () => {
   const navigate = useNavigate();
 
   const [seriesData, setSeriesData] = useState(PriceWeekData);
-  const [optionsData, setOptionsData] = useState(options);
+  const [optionsData, setOptionsData] = useState(optionsWeek);
   const [currentChart, setCurrentChart] = useState('weekly');
 
   const handleOneDay = () => {
     setSeriesData(PriceDayData);
-    setOptionsData(options1);
+    setOptionsData(oneDayOptions);
     setCurrentChart('oneDay');
   }
   const handle3Days = () => {
     setSeriesData(Price3DaysData);
-    setOptionsData(options);
+    setOptionsData(threeDaysOptions);
     setCurrentChart('threeDays');
   }
   const handleWeek = () => {
     setSeriesData(PriceWeekData);
-    setOptionsData(options);
+    setOptionsData(optionsWeek);
     setCurrentChart('weekly');
   }
   const handleMonth = () => {
     setSeriesData(PriceMonthData);
-    setOptionsData(options);
+    setOptionsData(optionsMonth);
     setCurrentChart('month');
   }
 
@@ -155,14 +263,14 @@ const PriceChart = () => {
       <div>
         <h4 style={{ marginTop: '20px' }}>Price Chart</h4>
         <div style={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '3%' }}>
-          <div style={{ display: 'flex' }}>
-            <div style={{ backgroundColor: 'blue', color: 'white', padding: '1px', width: '80px', height: '30px' }} /><div>Buy Price</div>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly', fontSize: '13px', alignItems: 'center' }}>
+            <div style={{ backgroundColor: 'blue', color: 'white', padding: '1px', width: '60px', height: '25px' }} />&nbsp;<div>Buy Price</div>
           </div>
-          <div style={{ display: 'flex' }}>
-            <div style={{ backgroundColor: 'lightgreen', color: 'white', padding: '1px', width: '80px', height: '30px' }} /><div>Sell Price</div>
+          <div style={{ display: 'flex', justifyContent: 'space-evenly', fontSize: '13px', alignItems: 'center' }}>
+            <div style={{ backgroundColor: 'lightgreen', color: 'white', padding: '1px', width: '60px', height: '25px' }} />&nbsp;<div>Sell Price</div>
           </div>
         </div>
-        <ReactApexChart options={optionsData} series={seriesData} type="line" height={300} width={400} />
+        <ReactApexChart options={optionsData} series={seriesData} type="line" height={300} width={350} />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button className={classes.GraphButton} variant={currentChart === 'oneDay' ? 'outlined' : 'contained'} onClick={handleOneDay}>1 Day</Button>
           <Button className={classes.GraphButton} variant={currentChart === 'threeDays' ? 'outlined' : 'contained'} onClick={handle3Days}>3 Days</Button>
