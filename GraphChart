@@ -8,10 +8,7 @@ import { PriceDayData, Price3DaysData, PriceMonthData, PriceWeekData } from './M
 
 const useStyles = makeStyles((theme) => ({
   GraphButton: {
-    "&.active": {
-      background: 'black',
-      variant: 'outlined',
-    },
+    width: 'auto',
   },
 }));
 
@@ -50,14 +47,22 @@ const options1 = {
   },
   xaxis: {
     type: 'datetime',
-    categories: ['9/18/22', '9/21/22', '9/25/22', '9/29/22', '10/2/22', '10/5/22', '10/9/22'],
+    categories: ['9/18/22', '9/18/22', '9/18/22', '9/18/22', '9/18/22', '9/18/22', '9/18/22'],
     selection: {
       enabled: true
     },
+    labels: {
+      datetimeFormatter: {
+        year: 'yyyy',
+        month: 'MMM \'yy',
+        day: 'dd MMM',
+        hour: 'HH:mm'
+      }
+    }
   },
   tooltip: {
     x: {
-      format: 'mm/dd/yy',
+      format: 'HH:mm',
     },
   },
 };
@@ -116,28 +121,29 @@ const PriceChart = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [seriesData, setSeriesData] = useState(PriceDayData);
+  const [seriesData, setSeriesData] = useState(PriceWeekData);
   const [optionsData, setOptionsData] = useState(options);
+  const [currentChart, setCurrentChart] = useState('weekly');
 
   const handleOneDay = () => {
     setSeriesData(PriceDayData);
-    setOptionsData(options);
+    setOptionsData(options1);
+    setCurrentChart('oneDay');
   }
   const handle3Days = () => {
     setSeriesData(Price3DaysData);
-    setOptionsData(options1);
-
+    setOptionsData(options);
+    setCurrentChart('threeDays');
   }
   const handleWeek = () => {
-
     setSeriesData(PriceWeekData);
-    setOptionsData(options1);
-
-
+    setOptionsData(options);
+    setCurrentChart('weekly');
   }
   const handleMonth = () => {
     setSeriesData(PriceMonthData);
     setOptionsData(options);
+    setCurrentChart('month');
   }
 
   return (
@@ -156,12 +162,12 @@ const PriceChart = () => {
             <div style={{ backgroundColor: 'lightgreen', color: 'white', padding: '1px', width: '80px', height: '30px' }} /><div>Sell Price</div>
           </div>
         </div>
-        <ReactApexChart options={optionsData} series={seriesData} type="line" height={350} width={420} />
+        <ReactApexChart options={optionsData} series={seriesData} type="line" height={300} width={400} />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button className={classes.GraphButton} variant="contained" onClick={handleOneDay}>1 Day</Button>
-          <Button className={classes.GraphButton} variant="contained" onClick={handle3Days}>3 Days</Button>
-          <Button className={classes.GraphButton} variant="contained" onClick={handleWeek}>1 Week</Button>
-          <Button className={classes.GraphButton} variant="contained" onClick={handleMonth}>1 Month</Button>
+          <Button className={classes.GraphButton} variant={currentChart === 'oneDay' ? 'outlined' : 'contained'} onClick={handleOneDay}>1 Day</Button>
+          <Button className={classes.GraphButton} variant={currentChart === 'threeDays' ? 'outlined' : 'contained'} onClick={handle3Days}>3 Days</Button>
+          <Button className={classes.GraphButton} variant={currentChart === 'weekly' ? 'outlined' : 'contained'} onClick={handleWeek}>1 Week</Button>
+          <Button className={classes.GraphButton} variant={currentChart === 'month' ? 'outlined' : 'contained'} onClick={handleMonth}>1 Month</Button>
         </div>
       </div>
     </div >
